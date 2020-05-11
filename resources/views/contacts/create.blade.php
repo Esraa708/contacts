@@ -12,10 +12,10 @@
             </ul>
         </div>
         @endif
-        {!! Form::open(['route' => 'phones.store']) !!}
+        {!! Form::open(['route' => 'contacts.store']) !!}
         <div class="form-group">
-            <label for="phone">phone</label>
-            {!! Form::text('mobilenumber', '01009825243',['class' => 'form-control']);!!}
+            <label for="phone">Add contact</label>
+            {!! Form::select('user', $users, 'user',['class' => 'form-control']); !!}
         </div>
 
 

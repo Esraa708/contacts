@@ -7,22 +7,28 @@
     <p class="mb-0"></p>
 </div>
 @endif
-<a href="{{url('phones/create')}}" class="btn btn-primary mb-3">Add a new phone </a>
+<a href="{{url('contacts/create')}}" class="btn btn-primary mb-3">Add a new contact </a>
 <table class="table table-striped table-inverse table-responsive">
     <thead class="thead-inverse">
         <tr>
-            <th>phone</th>
+            <th>contact</th>
             <th>action</th>
 
         </tr>
     </thead>
     <tbody>
-        @foreach($phones as $phone)
+        @foreach($contacts as $contact)
         <tr>
-            <td scope="row">{{$phone->mobilenumber}} </td>
-            <td><a class="btn btn-info" href="{{route('phones.edit',$phone->id)}} ">Edit</a></td>
+            <td scope="row">{{$contact->name}} </td>
+            <td scope="row">
+                @foreach($contact->phones as $phone )
+                {{$phone->mobilenumber}}</br>
+                @endforeach
+            </td>
+
+            <td><a class="btn btn-info" href="{{route('contacts.edit',$contact->id)}} ">Edit</a></td>
             <td>
-                {{ Form::open(array('url' => 'phones/' . $phone->id)) }}
+                {{ Form::open(array('url' => 'contacts/' . $contact->id)) }}
                 {{ Form::hidden('_method', 'DELETE') }}
                 {{ Form::submit('Delete', array('class' => 'btn btn-warning')) }}
                 {{ Form::close() }}

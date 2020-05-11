@@ -19,5 +19,6 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::resource('phones', 'AddPhone');
-Route::resource('users','userController');
+Route::resource('users', 'userController');
+Route::resource('contacts', 'ContactsController');
 Route::get('/home', 'HomeController@index')->name('home');

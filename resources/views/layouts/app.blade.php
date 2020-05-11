@@ -37,7 +37,10 @@
                     <ul class="navbar-nav mr-auto">
                         @if (Auth::check())
                         <li class="nav-item">
-                            <a href="{{ url('/phones') }}" class="nav-link">my phones</a>
+                            <a href="{{ url('/phones') }}" class="nav-link">Phones</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/contacts') }}" class="nav-link">Contacts</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('users.edit',Auth::id())}}" class="nav-link">Edit profile</a>

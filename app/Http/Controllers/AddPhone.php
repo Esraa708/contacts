@@ -48,14 +48,24 @@ class AddPhone extends Controller
      */
     public function store(Request $request)
     {
-        // echo 'hello from esraa';
-        //    dd ($request -> all());
-        // dd(Auth::user());
+
+        $this->validate(request(), [
+            'mobilenumber' =>
+            array(
+                'required',
+                'unique:mobilephones,mobilenumber,NULL,id,deleted_at,NULL',
+                'digits:11',
+                'regex:/^(010|011|012)[0-9]{8}$/',
+
+            )
+        ]);
         $mob = new mobilephone;
-        $mob->mobilenumber = $request->phone;
+        $mob->mobilenumber = $request->mobilenumber;
         $mob->user_id = Auth::id();
         $mob->save();
-        return Redirect::to('phones');
+        // Session::flash('message', 'Successfully updated phone!');
+
+        return Redirect::to('phones')->with('success','phone has created successfully');
     }
 
     /**
@@ -75,14 +85,14 @@ class AddPhone extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(mobilephone $phone)
     {
         // dd(intval($id));
         // $phone = mobilephone::where('id', $id)->first();
         //
         // dd($phone->mobilenumber);
 
-        $phone = mobilephone::find($id);
+        // $phone = mobilephone::find($id);
         return View::make('phones.edit')->with('phone', $phone);
     }
 
@@ -93,9 +103,19 @@ class AddPhone extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, mobilephone $phone)
     {
-        $phone = mobilephone::find($id);
+        $this->validate(request(), [
+            'mobilenumber' =>
+            array(
+                'required',
+                'unique:mobilephones,mobilenumber,NULL,id,deleted_at,NULL',
+                'digits:11',
+                'regex:/^(010|011|012)[0-9]{8}$/',
+
+            )
+        ]);
+        // $phone = mobilephone::find($id);
         $phone->mobilenumber = $request->mobilenumber;
         $phone->save();
         Session::flash('message', 'Successfully updated phone!');
@@ -108,9 +128,9 @@ class AddPhone extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(mobilephone $phone)
     {
-        $phone = mobilephone::find($id);
+        // $phone = mobilephone::find($id);
         $phone->delete();
         Session::flash('message', 'Successfully deleted phone!');
         return Redirect::to('phones');
